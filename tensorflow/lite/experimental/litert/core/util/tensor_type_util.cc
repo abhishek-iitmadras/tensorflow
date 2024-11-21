@@ -19,6 +19,7 @@
 #include "tensorflow/lite/experimental/litert/c/litert_common.h"
 #include "tensorflow/lite/experimental/litert/c/litert_model.h"
 #include "tensorflow/lite/experimental/litert/cc/litert_expected.h"
+#include "tensorflow/lite/schema/schema_generated.h"
 
 namespace litert {
 namespace internal {
@@ -50,6 +51,25 @@ Expected<Ratio> GetElementSize(LiteRtElementType element_type) {
     case kLiteRtElementTypeComplex128:
       return Ratio{32, 1};
     default:
+      return Unexpected(kLiteRtStatusErrorInvalidArgument,
+                        "Unexpected element type");
+  }
+}
+
+// absl::StatusOr<tflite::TensorType> GetTFliteElementType(
+Expected<tflite::TensorType> GetTFliteElementType(
+    LiteRtElementType element_type) {
+  switch (element_type) {
+    case kLiteRtElementTypeFloat32:
+      return tflite::TensorType_FLOAT32;
+    case kLiteRtElementTypeFloat16:
+      return tflite::TensorType_FLOAT16;
+    case kLiteRtElementTypeInt32:
+      return tflite::TensorType_INT32;
+    case kLiteRtElementTypeBool:
+      return tflite::TensorType_BOOL;
+    default:
+      // return absl::InvalidArgumentError("Unexpected element type");
       return Unexpected(kLiteRtStatusErrorInvalidArgument,
                         "Unexpected element type");
   }

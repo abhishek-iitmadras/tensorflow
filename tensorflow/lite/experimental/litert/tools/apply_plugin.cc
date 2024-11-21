@@ -14,6 +14,7 @@
 
 #include "tensorflow/lite/experimental/litert/tools/apply_plugin.h"
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -29,6 +30,7 @@
 #include "absl/strings/string_view.h"
 #include "absl/types/span.h"
 #include "tensorflow/lite/experimental/litert/c/litert_common.h"
+#include "tensorflow/lite/experimental/litert/c/litert_logging.h"
 #include "tensorflow/lite/experimental/litert/c/litert_model.h"
 #include "tensorflow/lite/experimental/litert/cc/litert_buffer_ref.h"
 #include "tensorflow/lite/experimental/litert/cc/litert_expected.h"
@@ -598,6 +600,19 @@ LiteRtStatus Apply(Context& ctx) {
 
   BufferRef<uint8_t> compiled_buffer(compilation_out.view().data(),
                                      compilation_out.view().size());
+
+  // For each custom op, if the input tensor is a constant, it should be removed
+  // from the input list.
+  for (auto& custom_op : custom_ops) {
+    std::vector<LiteRtTensor> new_inputs;
+    for (auto& input : custom_op->inputs) {
+      litert::Tensor input_tensor = litert::Tensor(input);
+      if (!input_tensor.IsConstant()) {
+        new_inputs.push_back(input);
+      }
+    }
+    custom_op->inputs = new_inputs;
+  }
 
   ctx.SwapOut(out);
   if (ctx.Serialization() == Serialization::kMetadata) {

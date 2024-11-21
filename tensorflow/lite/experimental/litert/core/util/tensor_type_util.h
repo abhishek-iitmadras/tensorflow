@@ -15,12 +15,14 @@
 #ifndef TENSORFLOW_LITE_EXPERIMENTAL_LITERT_CORE_UTIL_TENSOR_TYPE_UTIL_H_
 #define TENSORFLOW_LITE_EXPERIMENTAL_LITERT_CORE_UTIL_TENSOR_TYPE_UTIL_H_
 
+#include <cstdint>
 #include <string>
 
 #include "absl/strings/str_cat.h"
 #include "absl/types/span.h"
 #include "tensorflow/lite/experimental/litert/c/litert_model.h"
 #include "tensorflow/lite/experimental/litert/cc/litert_expected.h"
+#include "tensorflow/lite/schema/schema_generated.h"
 
 namespace litert::internal {
 
@@ -82,6 +84,9 @@ inline Expected<size_t> GetNumPackedBytes(
       tensor_type.element_type,
       absl::MakeSpan(tensor_type.layout.dimensions, tensor_type.layout.rank));
 }
+
+Expected<tflite::TensorType> GetTFliteElementType(
+    LiteRtElementType element_type);
 
 // Get the minimum number of bytes necessary to represent a possibly unpacked
 // tensor with a given element type, dimensions, and strides.

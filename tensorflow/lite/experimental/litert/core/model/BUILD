@@ -112,6 +112,7 @@ cc_library(
         "//tensorflow/lite/experimental/litert/cc:litert_macros",
         "//tensorflow/lite/experimental/litert/cc:litert_model",
         "//tensorflow/lite/experimental/litert/core/util:flatbuffer_tools",
+        "//tensorflow/lite/experimental/litert/core/util:tensor_type_util",
         "//tensorflow/lite/schema:schema_fbs",
         "@com_google_absl//absl/container:flat_hash_map",
         "@com_google_absl//absl/log:absl_check",

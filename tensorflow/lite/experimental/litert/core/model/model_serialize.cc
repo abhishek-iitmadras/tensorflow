@@ -34,6 +34,7 @@
 #include "tensorflow/lite/experimental/litert/core/model/model.h"
 #include "tensorflow/lite/experimental/litert/core/model/model_util.h"
 #include "tensorflow/lite/experimental/litert/core/util/flatbuffer_tools.h"
+#include "tensorflow/lite/experimental/litert/core/util/tensor_type_util.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
 namespace litert::internal {
@@ -93,8 +94,7 @@ LiteRtStatus ModelRepacker::SerializeTensor(LiteRtTensor tensor,
                                             tflite::TensorT& target) {
   target.has_rank = true;
   const auto& type = tensor->type_detail.ranked_tensor_type;
-  // TODO: b/365299994 - Map litert element types to flatbuffer elements types.
-  target.type = tflite::TensorType_FLOAT32;
+  target.type = *GetTFliteElementType(type.element_type);
 
   for (int i = 0; i < type.layout.rank; ++i) {
     target.shape.push_back(type.layout.dimensions[i]);

@@ -44,10 +44,9 @@ namespace {
 constexpr char kPluginManufacturer[] = "Qualcomm";
 
 constexpr std::pair<const char*, QnnHtpDevice_Arch_t> kPluginSocModels[] = {
-    {"V68", QNN_HTP_DEVICE_ARCH_V68},
-    {"V69", QNN_HTP_DEVICE_ARCH_V69},
-    {"V73", QNN_HTP_DEVICE_ARCH_V73},
-    {"V75", QNN_HTP_DEVICE_ARCH_V75},
+    {"V68", QNN_HTP_DEVICE_ARCH_V68}, {"V69", QNN_HTP_DEVICE_ARCH_V69},
+    {"V73", QNN_HTP_DEVICE_ARCH_V73}, {"V75", QNN_HTP_DEVICE_ARCH_V75},
+    {"V79", QNN_HTP_DEVICE_ARCH_V79},
 };
 // clang-format off
 constexpr LiteRtOpCode kSupportedOps[] = {

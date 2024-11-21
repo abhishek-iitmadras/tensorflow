@@ -43,9 +43,11 @@ cc_library(
         "tensor_type_util.h",
     ],
     deps = [
+        "//tensorflow/lite/c:c_api_types",
         "//tensorflow/lite/experimental/litert/c:litert_common",
         "//tensorflow/lite/experimental/litert/c:litert_model",
         "//tensorflow/lite/experimental/litert/cc:litert_expected",
+        "//tensorflow/lite/schema:schema_fbs",
         "@com_google_absl//absl/strings",
         "@com_google_absl//absl/types:span",
     ],

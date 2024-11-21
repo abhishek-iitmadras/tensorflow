@@ -113,7 +113,6 @@ LiteRtStatus MapGraph(QnnManager& qnn, Qnn_ContextHandle_t context_handle,
 
   for (const auto& op : graph_mapper.Graph().Ops()) {
     Qnn_OpConfig_t qnn_op = BuildDefaultOp();
-    ;
     for (auto it = legalizations.begin(); it != legalizations.end(); ++it) {
       LITERT_RETURN_STATUS_IF_NOT_OK_OR_NOT_MATCHED(
           (*it)->LegalizeOp(op, qnn_op, graph_mapper));
