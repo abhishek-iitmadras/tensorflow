@@ -352,6 +352,9 @@ cc_library(
         ":api",
         "//tensorflow/lite/delegates/gpu/common:data_type",
         "//tensorflow/lite/delegates/gpu/gl:gl_errors",
+        "//third_party/GL:EGL_headers",
+        "//third_party/GL:GLES2_headers",
+        "//third_party/GL:GLES3_headers",
         "@com_google_absl//absl/status",
     ],
 )

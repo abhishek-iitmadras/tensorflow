@@ -20,6 +20,8 @@ cc_library(
     deps = [
         ":portable",
         "//tensorflow/lite/delegates/gpu/common:status",
+        "//third_party/GL:EGL_headers",
+        "//third_party/GL:GLES2_headers",
     ],
 )
 
